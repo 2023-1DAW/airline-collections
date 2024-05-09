@@ -93,6 +93,6 @@ public class Airline {
                         .getPassengers()
                         .stream()
                         .anyMatch(p -> p.getNif().equals(nif)))
-                .collect(Collectors.toList())
+                .collect(Collectors.toList());
     }
 }
