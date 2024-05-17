@@ -2,6 +2,8 @@ package org.ies.tierno.airline.model;
 
 import com.sun.source.util.Trees;
 import org.ies.tierno.airline.model.comparators.ByNifPassengerComparator;
+import org.junit.Assert;
+import org.junit.Test;
 
 import java.util.*;
 
@@ -10,23 +12,65 @@ public class AirlineTests {
     private Airline airline = createAirline();
 
 
-    private Airline createAirline() {
-        Map<Integer, Flight> flights = new HashMap<>();
+    @Test
+    public void getFlightPassengersTest() {
+        Set<Passenger> passengers = airline.getFlightPassengers(1);
+
+
         var passengers1 = new TreeSet<Passenger>(new ByNifPassengerComparator());
         passengers1.add(
-                new Passenger("001", 1, List
-                        .of(
+                new Passenger(
+                        "001",
+                        1,
+                        List.of(
                                 new Luggage(1, "Maleta roja")
                         )
                 )
         );
         passengers1.add(
-                new Passenger("002", 2, List
-                        .of(
+                new Passenger(
+                        "002",
+                        2,
+                        List.of(
                                 new Luggage(2, "Maleta azul")
                         )
                 )
         );
+
+        Assert.assertEquals(passengers1, passengers);
+    }
+
+    @Test
+    public void getFlightPassengersFlightNotExistTest() {
+        Set<Passenger> passengers = airline.getFlightPassengers(-1);
+
+        Assert.assertNull(passengers);
+    }
+
+
+    private Airline createAirline() {
+        Map<Integer, Flight> flights = new HashMap<>();
+
+        var passengers1 = new TreeSet<Passenger>(new ByNifPassengerComparator());
+        passengers1.add(
+                new Passenger(
+                        "001",
+                        1,
+                        List.of(
+                                new Luggage(1, "Maleta roja")
+                        )
+                )
+        );
+        passengers1.add(
+                new Passenger(
+                        "002",
+                        2,
+                        List.of(
+                                new Luggage(2, "Maleta azul")
+                        )
+                )
+        );
+
         flights.put(
                 1,
                 new Flight(
